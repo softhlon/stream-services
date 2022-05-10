@@ -1,0 +1,70 @@
+version: "3.9"
+
+services:
+  wiremock:
+    image: wiremock/wiremock:2.33.1
+    command: --verbose
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./src/test/resources:/home/wiremock
+
+  arrangement-manager:
+    image: ghcr.io/backbase/api-simulator:latest
+    platform: linux/amd64
+    ports:
+      - "8082:8080"
+    environment:
+      server.port: 8080
+      eureka.client.enabled: false
+      spring.application.name: arrangement-manager
+      backbase.api.simulator.spec: config/specs/arrangement-service-api-v2.4.4.yaml
+      logging.level.com.backbase: DEBUG
+      SIG_SECRET_KEY: JWTSecretKeyDontUseInProduction!
+    volumes:
+      - ../../stream-dbs-clients/target/yaml/arrangement-manager:/home/nonroot/config/specs
+
+  access-control:
+    image: ghcr.io/backbase/api-simulator:latest
+    platform: linux/amd64
+    ports:
+      - "8083:8080"
+    environment:
+      server.port: 8080
+      eureka.client.enabled: false
+      spring.application.name: access-control
+      backbase.api.simulator.spec: config/specs/access-control-service-api-v2.8.2.yaml
+      logging.level.com.backbase: DEBUG
+      SIG_SECRET_KEY: JWTSecretKeyDontUseInProduction!
+    volumes:
+      - ../../stream-dbs-clients/target/yaml/access-control:/home/nonroot/config/specs
+
+  user-manager:
+    image: ghcr.io/backbase/api-simulator:latest
+    platform: linux/amd64
+    ports:
+      - "8084:8080"
+    environment:
+      server.port: 8080
+      eureka.client.enabled: false
+      spring.application.name: user-manager
+      backbase.api.simulator.spec: config/specs/user-manager-service-api-v2.3.3.yaml
+      logging.level.com.backbase: DEBUG
+      SIG_SECRET_KEY: JWTSecretKeyDontUseInProduction!
+    volumes:
+      - ../../stream-dbs-clients/target/yaml/user-manager:/home/nonroot/config/specs
+
+  identity-integration-service:
+    image: ghcr.io/backbase/api-simulator:latest
+    platform: linux/amd64
+    ports:
+      - "8085:8080"
+    environment:
+      server.port: 8080
+      eureka.client.enabled: false
+      spring.application.name: identity-integration-service
+      backbase.api.simulator.spec: config/specs/identity-integration-outbound-api-v1.0.2.yaml
+      logging.level.com.backbase: DEBUG
+      SIG_SECRET_KEY: JWTSecretKeyDontUseInProduction!
+    volumes:
+      - ../../stream-dbs-clients/target/yaml/identity:/home/nonroot/config/specs

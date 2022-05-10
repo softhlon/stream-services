@@ -1,0 +1,21 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/token-converter/oauth/token"
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiYi1jbGllbnQiLCJhdWQiOlsiYmItb2F1dGgiXSwic2NvcGUiOlsiYXBpOnNlcnZpY2UiXSwiaXNzIjoidG9rZW4tY29udmVydGVyIiwiZXhwIjoxNjUyMjE0MDA0LCJqdGkiOiJjN2U5ZmM1YS1lNzFmLTRmOWUtYjY1OC1iMzNmYTkyN2U2YjUiLCJjbGllbnRfaWQiOiJiYi1jbGllbnQifQ.mgFsCv7CLc59Gg8CYw1k1oV-SQwobJDASo91-legCQA",
+      "token_type": "bearer",
+      "expires_in": 300,
+      "scope": "api:service",
+      "sub": "bb-client",
+      "iss": "token-converter",
+      "jti": "c7e9fc5a-e71f-4f9e-b658-b33fa927e6b5"
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

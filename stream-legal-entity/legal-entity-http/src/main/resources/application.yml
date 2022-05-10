@@ -1,3 +1,39 @@
+logging:
+  level:
+    root: info
+    com.backbase: debug
+
 spring:
   codec:
     max-in-memory-size: 10MB
+  cloud:
+    config:
+      enabled: false
+  security:
+    oauth2:
+      client:
+        registration:
+          dbs:
+            authorization-grant-type: client_credentials
+            client-id: bb-client
+            client-secret: bb-secret
+            client-authentication-method: post
+        provider:
+          dbs:
+            token-uri: http://localhost:8081/token-converter/oauth/token
+
+backbase:
+  stream:
+    web:
+      trace:
+        response:
+          enabled: true
+    legalentity:
+      sink:
+        use-identity-integration: true
+    dbs:
+      user-manager-base-url: http://localhost:8084
+      access-control-base-url: http://localhost:8082
+      arrangement-manager-base-url: http://localhost:8082
+    identity:
+      identity-integration-base-url: http://localhost:8085
