@@ -1,7 +1,22 @@
-variables:
-  wait: --wait
-  appName: streams
+resources:
+  - repo: self
 
+trigger:
+  branches:
+    include:
+      - develop
+  paths:
+    include:
+      - wsecu-develop
+
+name: $(Date:yyyyMMdd)$(Rev:.r)
+
+pool:
+  name: Docker
+  demands:
+    - sh
+    - maven
+    -
 stages:
   - stage: Build
     jobs:
