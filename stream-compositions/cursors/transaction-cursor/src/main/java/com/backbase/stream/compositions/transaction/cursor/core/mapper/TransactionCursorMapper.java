@@ -1,5 +1,6 @@
 package com.backbase.stream.compositions.transaction.cursor.core.mapper;
 
+import com.backbase.dbs.user.api.service.StringUtil;
 import com.backbase.stream.compositions.transaction.cursor.core.domain.TransactionCursorEntity;
 import com.backbase.stream.compositions.transaction.cursor.model.TransactionCursorResponse;
 import com.backbase.stream.compositions.transaction.cursor.model.TransactionCursorUpsertRequest;
@@ -17,6 +18,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.apache.commons.lang3.StringUtils;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Qualifier;
@@ -79,7 +81,7 @@ public interface TransactionCursorMapper {
     @WithTxnDomainParser
     default String convertLastTransToStringFormat(List<String> lastTxnIds) {
         if (Objects.nonNull(lastTxnIds)) {
-            return String.join(",", lastTxnIds).substring(0, 3900);
+            return StringUtils.truncate(String.join(",", lastTxnIds), 3900);
         }
         return null;
     }
