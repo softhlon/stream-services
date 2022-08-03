@@ -81,7 +81,7 @@ public interface TransactionCursorMapper {
     @WithTxnDomainParser
     default String convertLastTransToStringFormat(List<String> lastTxnIds) {
         if (Objects.nonNull(lastTxnIds)) {
-            return StringUtils.truncate(String.join(",", lastTxnIds), 3900);
+            return StringUtils.truncate(String.join(",", lastTxnIds), 4000);
         }
         return null;
     }
