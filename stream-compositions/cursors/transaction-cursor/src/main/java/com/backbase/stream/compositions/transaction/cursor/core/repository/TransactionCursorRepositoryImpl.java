@@ -18,6 +18,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 
 @AllArgsConstructor
 @Slf4j
@@ -54,7 +55,7 @@ public class TransactionCursorRepositoryImpl implements TransactionCursorCustomR
     Root<TransactionCursorEntity> transactionCursor = cq.from(TransactionCursorEntity.class);
     cq.set(transactionCursor.get(STATUS), transactionCursorPatchRequest.getStatus());
     if (null != transactionCursorPatchRequest.getLastTxnIds()) {
-      cq.set(transactionCursor.get(LAST_TXN_IDS), transactionCursorPatchRequest.getLastTxnIds());
+      cq.set(transactionCursor.get(LAST_TXN_IDS), StringUtils.truncate(transactionCursorPatchRequest.getLastTxnIds(), 4000));
     }
     if (null != transactionCursorPatchRequest.getLastTxnDate()) {
       Timestamp lastTxnDate;
