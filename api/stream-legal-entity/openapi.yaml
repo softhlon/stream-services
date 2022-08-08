@@ -400,8 +400,6 @@ components:
           $ref: '#/components/schemas/PanSuffix'
         productNumber:
           $ref: '#/components/schemas/ProductNumber'
-        bankBranchCode:
-          $ref: '#/components/schemas/BankBranchCode'
         accountInterestRate:
           $ref: '#/components/schemas/AccountInterestRate'
         valueDateBalance:
@@ -470,8 +468,6 @@ components:
           $ref: '#/components/schemas/PanSuffix'
         productNumber:
           $ref: '#/components/schemas/ProductNumber'
-        bankBranchCode:
-          $ref: '#/components/schemas/BankBranchCode'
         accountInterestRate:
           $ref: '#/components/schemas/AccountInterestRate'
         minimumRequiredBalance:
@@ -606,8 +602,6 @@ components:
           $ref: '#/components/schemas/CreditLimitInterestRate'
         accruedInterest:
           $ref: '#/components/schemas/AccruedInterest'
-        bankBranchCode:
-          $ref: '#/components/schemas/BankBranchCode'
         cardDetails:
           $ref: '#/components/schemas/CardDetailsItem'
     Loan:
@@ -664,8 +658,6 @@ components:
           $ref: '#/components/schemas/IBAN'
         BBAN:
           $ref: '#/components/schemas/BBAN'
-        bankBranchCode:
-          $ref: '#/components/schemas/BankBranchCode'
     TermDeposit:
       allOf:
         - $ref: '#/components/schemas/BaseProduct'
@@ -753,8 +745,6 @@ components:
           $ref: '#/components/schemas/UrgentTransfer'
         BIC:
           $ref: '#/components/schemas/BIC'
-        bankBranchCode:
-          $ref: '#/components/schemas/BankBranchCode'
         accountInterestRate:
           $ref: '#/components/schemas/AccountInterestRate'
         valueDateBalance:
