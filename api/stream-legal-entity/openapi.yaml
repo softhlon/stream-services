@@ -374,6 +374,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/UserPreferences'
+        bankBranchCode:
+          $ref: '#/components/schemas/BankBranchCode'
         additions:
           type: object
           additionalProperties:
