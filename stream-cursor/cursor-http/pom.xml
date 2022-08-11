@@ -5,12 +5,12 @@
     <parent>
         <groupId>com.backbase.stream</groupId>
         <artifactId>stream-http-starter-parent</artifactId>
-        <version>3.0.0-SNAPSHOT</version>
+        <version>3.0.1-SNAPSHOT</version>
         <relativePath>../../stream-sdk/stream-starter-parents/stream-http-starter-parent</relativePath>
     </parent>
 
     <artifactId>cursor-http</artifactId>
-    <version>3.0.0-SNAPSHOT</version>
+    <version>3.0.1-SNAPSHOT</version>
 
     <packaging>jar</packaging>
     <name>Stream :: Cursor HTTP</name>
@@ -25,13 +25,13 @@
         <dependency>
             <groupId>com.backbase.stream</groupId>
             <artifactId>cursor-publishers</artifactId>
-            <version>3.0.0-SNAPSHOT</version>
+            <version>3.0.1-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>com.backbase.stream</groupId>
             <artifactId>cursor-store</artifactId>
-            <version>3.0.0-SNAPSHOT</version>
+            <version>3.0.1-SNAPSHOT</version>
         </dependency>
 
     </dependencies>

@@ -9,6 +9,8 @@ import com.backbase.stream.compositions.integration.product.model.PullProductGro
 import com.backbase.stream.compositions.product.core.mapper.ProductGroupMapper;
 import com.backbase.stream.compositions.product.core.model.ProductIngestPullRequest;
 import com.backbase.stream.compositions.product.core.model.ProductIngestResponse;
+
+import java.util.Arrays;
 import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,7 +44,7 @@ class ProductIntegrationServiceImplTest {
     ProductIngestResponse res = new ProductIngestResponse(productGroup1, Map.of());
 
     PullProductGroupResponse getProductGroupResponse = new PullProductGroupResponse().
-        productGroup(productGroup);
+        productGroups(Arrays.asList(productGroup));
     when(productIntegrationApi.pullProductGroup(any()))
         .thenReturn(Mono.just(getProductGroupResponse));
 
