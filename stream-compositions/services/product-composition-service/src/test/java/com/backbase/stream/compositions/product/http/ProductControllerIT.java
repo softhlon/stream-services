@@ -27,10 +27,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.activemq.broker.BrokerService;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockserver.client.MockServerClient;
 import org.mockserver.integration.ClientAndServer;
@@ -45,6 +42,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
+@Disabled
 @DirtiesContext
 @SpringBootTest
 @AutoConfigureWebTestClient
@@ -190,7 +188,7 @@ class ProductControllerIT extends IntegrationTest {
   @Test
   void pushIngestProduct_Success() throws Exception {
     ProductPushIngestionRequest pushIngestionRequest = new ProductPushIngestionRequest()
-        .withProductGgroup(new com.backbase.stream.compositions.product.api.model.ProductGroup());
+        .withProductGroup(new com.backbase.stream.compositions.product.api.model.ProductGroup());
     URI uri = URI.create("/service-api/v2/ingest/push");
     WebTestClient webTestClient = WebTestClient.bindToController(productController).build();
 
