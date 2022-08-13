@@ -21,10 +21,12 @@ import org.springframework.util.CollectionUtils;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static java.util.Optional.ofNullable;
 
@@ -122,28 +124,34 @@ public class ProductPostIngestionServiceImpl implements ProductPostIngestionServ
     private Flux<BaseProduct> extractProducts(List<ProductGroup> productGroups) {
         return Flux.concat(
                 Flux.fromIterable(
-                        ofNullable(productGroups.stream().flatMap(group -> group.getLoans().stream()).collect(Collectors.toList()))
+                        ofNullable(productGroups.stream().flatMap(group -> productStream(group.getLoans())).collect(Collectors.toList()))
                         .orElseGet(Collections::emptyList)),
                 Flux.fromIterable(
-                        ofNullable(productGroups.stream().flatMap(group -> group.getTermDeposits().stream()).collect(Collectors.toList()))
+                        ofNullable(productGroups.stream().flatMap(group -> productStream(group.getTermDeposits())).collect(Collectors.toList()))
                         .orElseGet(Collections::emptyList)),
                 Flux.fromIterable(
-                        ofNullable(productGroups.stream().flatMap(group -> group.getCurrentAccounts().stream()).collect(Collectors.toList()))
+                        ofNullable(productGroups.stream().flatMap(group -> productStream(group.getCurrentAccounts())).collect(Collectors.toList()))
                         .orElseGet(Collections::emptyList)),
                 Flux.fromIterable(
-                        ofNullable(productGroups.stream().flatMap(group -> group.getSavingAccounts().stream()).collect(Collectors.toList()))
+                        ofNullable(productGroups.stream().flatMap(group -> productStream(group.getSavingAccounts())).collect(Collectors.toList()))
                         .orElseGet(Collections::emptyList)),
                 Flux.fromIterable(
-                        ofNullable(productGroups.stream().flatMap(group -> group.getCreditCards().stream()).collect(Collectors.toList()))
+                        ofNullable(productGroups.stream().flatMap(group -> productStream(group.getCreditCards())).collect(Collectors.toList()))
                         .orElseGet(Collections::emptyList)),
                 Flux.fromIterable(
-                        ofNullable(productGroups.stream().flatMap(group -> group.getInvestmentAccounts().stream()).collect(Collectors.toList()))
+                        ofNullable(productGroups.stream().flatMap(group ->  productStream(group.getInvestmentAccounts())).collect(Collectors.toList()))
                         .orElseGet(Collections::emptyList)),
                 Flux.fromIterable(
-                        ofNullable(productGroups.stream().flatMap(group -> group.getCustomProducts().stream()).collect(Collectors.toList()))
+                        ofNullable(productGroups.stream().flatMap(group -> productStream(group.getCustomProducts())).collect(Collectors.toList()))
                         .orElseGet(Collections::emptyList)))
                 .filter(this::excludeProducts);
     }
+
+	private Stream<? extends BaseProduct> productStream(List<? extends BaseProduct> products) {
+		return Optional.ofNullable(products)
+				.map(Collection::stream)
+				.orElseGet(Stream::empty);
+	}
 
     private Boolean excludeProducts(BaseProduct product) {
         List<String> excludeList = config
