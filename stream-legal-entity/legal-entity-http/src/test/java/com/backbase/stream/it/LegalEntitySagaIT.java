@@ -129,6 +129,21 @@ public class LegalEntitySagaIT {
                                                 ))
                                 ))
                                 .administrators(Collections.emptyList())
+                                .masterServiceAgreement(
+                                        new ServiceAgreement()
+                                                .externalId("Master_Service_Agreement_Id")
+                                                .name("Master Service Agreement")
+                                                .description("Master Service Agreement")
+                                                .participants(Collections.singletonList(
+                                                        new LegalEntityParticipant()
+                                                                .externalId("user-external-id")
+                                                                .sharingUsers(true)
+                                                                .sharingAccounts(true)
+                                                                .users(Collections.singletonList("john.doe"))
+                                                ))
+                                                .status(LegalEntityStatus.ENABLED)
+                                                .isMaster(true)
+                                )
                                 .customServiceAgreement(
                                         new ServiceAgreement()
                                                 .externalId("Service_Agreement_Id")
