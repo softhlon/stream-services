@@ -114,7 +114,6 @@ public class LegalEntitySaga implements StreamTaskExecutor<LegalEntityTask> {
     public Mono<LegalEntityTask> executeTask(@SpanTag(value = "streamTask") LegalEntityTask streamTask) {
         return upsertLegalEntity(streamTask)
             .flatMap(this::linkLegalEntityToRealm)
-            .flatMap(this::clearUsersPermissions)
             .flatMap(this::setupAdministrators)
             .flatMap(this::setupUsers)
             .flatMap(this::setupServiceAgreement)
@@ -123,12 +122,6 @@ public class LegalEntitySaga implements StreamTaskExecutor<LegalEntityTask> {
             .flatMap(this::setupAdministratorPermissions)
             .flatMap(this::processProducts)
             .flatMap(this::processSubsidiaries);
-    }
-
-    private Mono<LegalEntityTask> clearUsersPermissions(LegalEntityTask streamTask) {
-        return Mono.just(streamTask)
-                .flatMap(task -> accessGroupService.clearUsersPermissions(task.getLegalEntity()))
-                .thenReturn(streamTask);
     }
 
     @Override
