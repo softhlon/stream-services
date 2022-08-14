@@ -1425,4 +1425,21 @@ public class AccessGroupService {
         log.warn("Failed to create job role: {} Response: {}", jobRole, badRequest.getResponseBodyAsString());
     }
 
+    public Mono<LegalEntity> clearUsersPermissions(LegalEntity legalEntity) {
+
+        List<JobProfileUser> users = legalEntity.getUsers();
+        ServiceAgreement serviceAgreement = legalEntity.getMasterServiceAgreement();
+
+        List<PresentationAssignUserPermissions> presentationAssignUserPermissions =
+                users.stream()
+                        .map(item -> new PresentationAssignUserPermissions()
+                                .externalUserId(item.getUser().getExternalId())
+                                .externalServiceAgreementId(serviceAgreement.getExternalId()))
+                        .collect(Collectors.toList());
+
+        return Mono.just(presentationAssignUserPermissions)
+                .flatMap(permissions -> accessControlUsersApi.putAssignUserPermissions(permissions).collectList())
+                .doOnNext((result) -> log.info("Cleared users permissions: {}", result))
+                .thenReturn(legalEntity);
+    }
 }
